@@ -25,7 +25,7 @@ fetch("./js/data.js")
 function createPages(data){
     const totalUser = document.getElementsByTagName("h3")[0];
     totalUser.innerText = `Total: ${data.length}`;
-    for (i = 0; i < data.length; i += pageSize){
+    for (let i = 0; i < data.length; i += pageSize){
         const page = data.slice(i, i + pageSize);
         pages.push(page);
     }
@@ -35,7 +35,7 @@ function createPages(data){
 // update the display
 function updateUserList(pageNumber){
     contactList.innerHTML = "";
-    for (i = 0; i < pages[pageNumber].length; i++){
+    for (let i = 0; i < pages[pageNumber].length; i++){
         let item =
         `<li class="contact-item cf">
             <div class="contact-details">
@@ -57,7 +57,7 @@ function createPageMenu(){
     pageList.classList.add("pagination");
     contactList.insertAdjacentElement("afterEnd", pageList);
     
-    for (j = 1; j < (pages.length + 1); j++){
+    for (let j = 1; j < (pages.length + 1); j++){
         const listItem = document.createElement("li");
         listItem.classList.add("pagination");
         const linkItem = document.createElement("a");
@@ -65,12 +65,11 @@ function createPageMenu(){
         listItem.appendChild(linkItem);
         pageList.appendChild(listItem);
 
-        (function(p){linkItem.addEventListener('click', (event) => {
+        linkItem.addEventListener('click', (event) => {
             event.preventDefault();
-            console.log(p);
-            updateUserList(p-1);
-        }
-        )})(j);
+            console.log(j);
+            updateUserList(j-1);
+        });
 
     }
 }
